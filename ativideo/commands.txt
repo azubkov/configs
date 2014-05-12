@@ -1,0 +1,13 @@
+aticonfig --pxl
+
+sudo aticonfig --px-dgpu
+
+sudo aticonfig --px-igpu
+
+ps axf | grep -i light
+
+
+xrandr --output LVDS1 --brightness 0.9
+
+xbacklight
+xbacklight -set 100
