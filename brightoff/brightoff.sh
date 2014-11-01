@@ -20,12 +20,15 @@ echo $INDEX > $COUNTER_FILE
 
 IS_MAKE_OFF=true
 
-if [ $(($INDEX%2)) -eq 0 ]; then
-    echo "even"
-    IS_MAKE_OFF=true
+
+STATUS_MONITOR=$(xset q | grep "Monitor is" | awk '{print $3}')
+
+if [ "$STATUS_MONITOR" == "On" ]; then
+	echo "Status = "$STATUS_MONITOR
+	IS_MAKE_OFF=true
 else
-    echo "odd"
-    IS_MAKE_OFF=false
+	echo "Status = "$STATUS_MONITOR
+	IS_MAKE_OFF=false
 fi
 
 if [ "$IS_MAKE_OFF" = true ] ; then
