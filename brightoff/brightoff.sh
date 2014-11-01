@@ -1,5 +1,6 @@
-##script to switch laptop screem 
+##script to switch laptop screen
 ## Dell Vostro 3560
+## key: win+f1
 CURRPATH=$(pwd)
 #CURRPATH=/home/tort/drivers/brightoff
 COUNTER_FILE=$CURRPATH/brightoff.counter.file
@@ -26,8 +27,6 @@ else
     echo "odd"
     IS_MAKE_OFF=false
 fi
-
-i8kctl fan
 
 if [ "$IS_MAKE_OFF" = true ] ; then
     echo 'turning off the laptop screen'
