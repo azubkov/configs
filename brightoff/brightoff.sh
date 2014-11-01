@@ -30,7 +30,7 @@ fi
 
 if [ "$IS_MAKE_OFF" = true ] ; then
     echo 'turning off the laptop screen'
-    xset dpms force off
+    sleep 1 && xset dpms force off
 else
     echo 'turning on the laptop screen'
     xset dpms force on
