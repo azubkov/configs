@@ -1,0 +1,35 @@
+How to restore system from existing linux snapshot
+
+1) Have a .iso file
+mysuse.iso
+
+2) Run system from Live Cd or Usb stick
+3) Mount both hdd disks: with target partition and with .iso file
+4) sudo su
+5) dd if=/dev/sdb1/mysuse.iso of=/dev/sda1 bs=512k
+6) reboot to Usb Stick
+   Now we will restore grub entry, so change root required.
+7) sudo su
+8) fdisk -l
+9) mount /dev/sda1 /mnt
+mount -B /proc /mnt/proc
+mount -B /sys /mnt/sys
+mount -B /dev /mnt/dev
+mount -B /dev/pts /mnt/dev/pts
+chroot /mnt
+grub2-install
+exit
+reboot
+10) mount /dev/sda1 /mnt
+cd /mnt/etc/
+mcedit fstab
+##here comment out all illegal paths, like old partition numbers sdb9, etc
+11)##chroot again
+grub2-mkconfig -o /boot/grub2/grub.cfg
+exit
+reboot
+
+12) if no kernels detected by grub:
+##chroot again
+mkinitrd
+mkinitramfs
