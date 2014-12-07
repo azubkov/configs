@@ -1,0 +1,12 @@
+How to create launcher for program from any directory(suse 13.1)?
+
+tort@linux-2rzl:~/bin> pwd -P
+/home/tort/bin
+tort@linux-2rzl:~/bin> ls -l
+total 4
+-rwxr-xr-x 1 tort users 59 Dec  7 10:24 idea.sh
+tort@linux-2rzl:~/bin> cat idea.sh
+nohup ~/soft/ijidea/bin/idea.sh &> $TMPDIR/idea_nohup.out&
+tort@linux-2rzl:~/bin> cd ..
+tort@linux-2rzl:~> idea.sh
+tort@linux-2rzl:~> 
