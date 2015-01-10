@@ -9,5 +9,184 @@ ps axf | grep -i light
 
 xrandr --output LVDS1 --brightness 0.9
 
+
+#adjust brightness [hardware]
 xbacklight
 xbacklight -set 100
+xbacklight -get
+xbacklight -inc 7
+xbacklight -dec 7
+
+##to know system brightness step press fn+brightness hotkey and run
+xbacklight -get
+##for several times
+##it gave like:
+tort@linux-2rzl:~> xbacklight -get
+0.000000
+tort@linux-2rzl:~> xbacklight -get
+20.000000
+tort@linux-2rzl:~> xbacklight -get
+40.000000
+tort@linux-2rzl:~> xbacklight -get
+60.000000
+tort@linux-2rzl:~> xbacklight -get
+
+
+##Ajust system step:
+# I found that hardware responses each 7 percent:
+6.666667
+tort@linux-2rzl:~> xbacklight -get
+6.666667
+tort@linux-2rzl:~> xbacklight -get
+13.333333
+
+
+##So step 7 required instead of step 20
+
+
+##what get called when I press brightness jey?
+xev
+##fn+brightness
+
+MappingNotify event, serial 36, synthetic NO, window 0x0,
+    request MappingKeyboard, first_keycode 8, count 248
+
+FocusOut event, serial 36, synthetic NO, window 0x5200001,
+    mode NotifyGrab, detail NotifyAncestor
+
+FocusIn event, serial 37, synthetic NO, window 0x5200001,
+    mode NotifyUngrab, detail NotifyAncestor
+
+KeymapNotify event, serial 37, synthetic NO, window 0x0,
+    keys:  1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   
+           0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   
+
+MappingNotify event, serial 37, synthetic NO, window 0x0,
+    request MappingKeyboard, first_keycode 8, count 248
+
+FocusOut event, serial 37, synthetic NO, window 0x5200001,
+    mode NotifyGrab, detail NotifyAncestor
+
+FocusIn event, serial 38, synthetic NO, window 0x5200001,
+    mode NotifyUngrab, detail NotifyAncestor
+
+KeymapNotify event, serial 38, synthetic NO, window 0x0,
+    keys:  1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   
+           0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   
+
+MappingNotify event, serial 38, synthetic NO, window 0x0,
+    request MappingKeyboard, first_keycode 8, count 248
+
+FocusOut event, serial 38, synthetic NO, window 0x5200001,
+    mode NotifyGrab, detail NotifyAncestor
+
+RRNotify event, serial 39, synthetic NO, window 0x5200001,
+    subtype XRROutputPropertyChangeNotifyEvent
+    output LVDS1, property Backlight, timestamp 71217925, state NewValue
+
+FocusIn event, serial 42, synthetic NO, window 0x5200001,
+    mode NotifyUngrab, detail NotifyAncestor
+
+KeymapNotify event, serial 42, synthetic NO, window 0x0,
+    keys:  1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   
+           0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   
+
+RRNotify event, serial 42, synthetic NO, window 0x5200001,
+    subtype XRROutputPropertyChangeNotifyEvent
+    output LVDS1, property Backlight, timestamp 71218027, state NewValue
+
+RRNotify event, serial 44, synthetic NO, window 0x5200001,
+    subtype XRROutputPropertyChangeNotifyEvent
+    output LVDS1, property Backlight, timestamp 71218063, state NewValue
+
+##as we see here brightness adjust step get called 3 times
+
+##find key numbers
+xmodmap -pke | less
+
+##redefine fn keys
+xmodmap
+
+##know what key is pressed
+linux-2rzl:/home/tort # showkey
+kb mode was ?UNKNOWN?
+[ if you are trying this under X, it might not work
+since the X server is also reading /dev/console ]
+
+press any key (program terminates 10s after last keypress)...
+keycode  28 release
+keycode 224 press
+keycode 224 release
+keycode 224 press
+keycode 224 release
+keycode 224 press
+keycode 224 release
+keycode 225 press
+keycode 225 release
+keycode 225 press
+keycode 225 release
+keycode 225 press
+keycode 225 release
+
+
+##at same time confuses:
+xmodmap -pke | less
+keycode 224 = XF86Messenger NoSymbol XF86Messenger
+keycode 225 = XF86Search NoSymbol XF86Search
+
+##okay running evtest
+evtest /dev/input/event0
+
+Event: time 1418022882.237296, -------------- Report Sync ------------
+Event: time 1418022887.227389, type 4 (Misc), code 4 (ScanCode), value 85
+Event: time 1418022887.227389, type 1 (Key), code 224 (Brightness down), value 1
+Event: time 1418022887.227389, -------------- Report Sync ------------
+Event: time 1418022887.227408, type 1 (Key), code 224 (Brightness down), value 0
+Event: time 1418022887.227408, -------------- Report Sync ------------
+Event: time 1418022887.233943, type 4 (Misc), code 4 (ScanCode), value 85
+Event: time 1418022887.233943, -------------- Report Sync ------------
+Event: time 1418022890.526418, type 4 (Misc), code 4 (ScanCode), value 86
+Event: time 1418022890.526418, type 1 (Key), code 225 (Brightness up), value 1
+Event: time 1418022890.526418, -------------- Report Sync ------------
+Event: time 1418022890.526437, type 1 (Key), code 225 (Brightness up), value 0
+Event: time 1418022890.526437, -------------- Report Sync ------------
+Event: time 1418022890.536245, type 4 (Misc), code 4 (ScanCode), value 86
+Event: time 1418022890.536245, -------------- Report Sync ------------
+
+##also, device 6 listen for sAMe codes:
+evtest /dev/input/event6
+Input driver version is 1.0.1
+Input device ID: bus 0x19 vendor 0x0 product 0x0 version 0x0
+Input device name: "Dell WMI hotkeys"
+
+##and device 8 as well
+
+##sending a virtual key:
+xdotool key --clearmodifiers XF86MonBrightnessUp
+
+
+##redefining keys:
+xmodmap -pke
+keycode 231 = Cancel NoSymbol Cancel
+keycode 232 = XF86MonBrightnessDown NoSymbol XF86MonBrightnessDown
+keycode 233 = XF86MonBrightnessUp NoSymbol XF86MonBrightnessUp
+keycode 234 = XF86AudioMedia NoSymbol XF86AudioMedia
+##remap brightness down to 'a'
+xmodmap -e "keycode 232 = a A a A"
+
+##lets find keys which do nothing in our system:
+xmodmap -pke | grep XF86
+xdotool key --clearmodifiers XF86Battery
+
+
+
+chmod -x /usr/lib/gnome-settings-daemon-3.0/gsd-backlight-helper
+
+
+
+
+
+
+#Hibernate command
+/usr/bin/systemctl hibernate
+
