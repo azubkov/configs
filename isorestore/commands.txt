@@ -33,3 +33,9 @@ reboot
 ##chroot again
 mkinitrd
 mkinitramfs
+
+
+
+
+13) Know hard drive UUIDs for fast fstab:
+sudo blkid
