@@ -1,0 +1,53 @@
+- Adjust brightness without FN key working:
+echo 3000 > /sys/class/backlight/intel_backlight/brightness
+
+
+- Download Radeon driver:
+http://support.amd.com/en-us/download/desktop?os=Linux+x86
+and fill with your parameters
+
+- Extract content wherever and navigate folder via console:
+cd /home/tort/tmp_dri/fglrx-14.501.1003/
+
+- Go to ctrl+shit+f1 mode
+stop lightdm
+cd /home/tort/tmp_dri/fglrx-14.501.1003
+./amd-driver-installer-14.501.1003-x86.x86_64.run
+
+- As execution failded examine log file and install al dependencies required
+cat /usr/share/ati/fglrx-install.log 
+
+apt-get install dh-modaliases
+apt-get install execstack
+apt-get install dpkg-dev
+...etc...
+
+
+- Be sure no old Amd Catalyst dirvers installed:
+dpkg -s fglrx
+which aticonfig
+which amdconfig
+
+- Install generated packages:
+dpkg -i fglrx*.deb
+
+- Check if installation successful:
+aticonfig
+
+- Run multi GPU setup:
+sudo aticonfig --adapter=all --initial
+
+
+- Make brighrtness key working:
+sudo su
+mcedit  /etc/default/grub 
+replace the line with :
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_osi=Linux acpi_backlight=vendor"
+F2 -> save F10(exit)
+update-grub
+restart
+
+-Articles:
+https://help.ubuntu.com/community/BinaryDriverHowto/AMD
+http://www.ryocentral.info/2013/07/getting-xbacklight-and-brightness-keys.html
+http://askubuntu.com/questions/205112/how-do-i-get-amd-intel-hybrid-graphics-drivers-to-work
