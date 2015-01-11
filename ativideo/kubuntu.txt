@@ -47,6 +47,10 @@ F2 -> save F10(exit)
 update-grub
 restart
 
+- If blinks when connecting second monitor: switch to integrate intel GPU and restart Xs:
+sudo aticonfig --px-igpu
+sudo restart lightdm
+
 -Articles:
 https://help.ubuntu.com/community/BinaryDriverHowto/AMD
 http://www.ryocentral.info/2013/07/getting-xbacklight-and-brightness-keys.html
