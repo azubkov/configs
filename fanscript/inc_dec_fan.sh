@@ -1,3 +1,4 @@
+#!/bin/bash
 ##script to increase\decrease fan speed sequentual pressing of same button.
 ## logic is : 0...1...2...0...1...2...0..etc
 ## Dell Vostro 3560
@@ -27,6 +28,7 @@ function setFanLevel(){
     local PARAM_LEVEL=$1;
     local RESULT="$(i8kfan $PARAM_LEVEL $PARAM_LEVEL)"
     echo $RESULT
+    kdialog --passivepopup "fan speed: $PARAM_LEVEL" 5
 }
 
 CURR_LEVEL=$(calcuateCurrentFanLevel)
