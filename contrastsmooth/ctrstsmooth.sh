@@ -11,7 +11,7 @@
 CURRPATH=$(pwd)
 
 
-COUNTER_FILE=$CURRPATH/brightsmooth.counter.file
+COUNTER_FILE=$CURRPATH/ctrstsmooth.counter.file
 echo COUNTER_FILE : $COUNTER_FILE
 
 INDEX=$(cat $COUNTER_FILE) 
@@ -27,7 +27,7 @@ echo current index is : $INDEX
 echo $INDEX > $COUNTER_FILE
 
 
-LEVEL_FILE=$CURRPATH/brightsmooth.level.file
+LEVEL_FILE=$CURRPATH/ctrstsmooth.level.file
 echo LEVEL_FILE : $LEVEL_FILE
 
 LATEST_LEVEL=$(cat $LEVEL_FILE)
