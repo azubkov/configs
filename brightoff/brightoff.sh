@@ -1,4 +1,5 @@
-##script to switch laptop screen
+#!/bin/bash
+#script to switch laptop screen
 ## Dell Vostro 3560
 ## key: win+f1
 CURRPATH=$(pwd)
@@ -24,12 +25,13 @@ IS_MAKE_OFF=true
 STATUS_MONITOR=$(xset q | grep "Monitor is" | awk '{print $3}')
 
 if [ "$STATUS_MONITOR" == "On" ]; then
-	echo "Status = "$STATUS_MONITOR
+	echo "Status = [$STATUS_MONITOR]"
 	IS_MAKE_OFF=true
 else
-	echo "Status = "$STATUS_MONITOR
+	echo "Status = [$STATUS_MONITOR]"
 	IS_MAKE_OFF=false
 fi
+echo "IS_MAKE_OFF: [$IS_MAKE_OFF]"
 
 if [ "$IS_MAKE_OFF" = true ] ; then
     echo 'turning off the laptop screen'
