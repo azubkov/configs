@@ -39,3 +39,6 @@ mkinitramfs
 
 13) Know hard drive UUIDs for fast fstab:
 sudo blkid
+
+14) graphically resize partitions:
+gparted
