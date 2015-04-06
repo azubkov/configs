@@ -40,5 +40,45 @@ mkinitramfs
 13) Know hard drive UUIDs for fast fstab:
 sudo blkid
 
+-----------------------------------------------------------
+Creating an Iso
+-----------------------------------------------------------
+14.0) List drives to know who is who:
+sudo fdisk -l
+sudo lsblk
+sudo lsblk -o name, fstype, size, mountpoint, label
+
+14.1) Copy iso from partition to file:
+sudo su
+dd if=/dev/sdb1 of=/dev/sde2/myxx.iso bs=512k
+
+If commnad says that read/write not possible,
+then try to mount locations at least somewhere:
+
+cd /mnt
+mkdir from
+mkdir to
+mount /dev/sdb1 /mnt/from
+mount /dev/sde2 /mnt/to
+
+to unmount use following:
+unmount /mnt/to
+
+14.2) after iso file completed, run system from ubs flash.
+THis is required for unpacking iso file.
+It contains root structure(/) which will intersect with our original system root(/)
+
+14.3) prepare another partition on any temporary hard drive.
+unpack your iso there using:
+dd if=/dev/sde2/myxx.iso of=/dev/sde3 bs=512k
+
+if any r\w errors appear on the same start, use mount command to any available folder and re-run dd
+
+14.4) after extracting target iso to target temp partition, resize it as needed using graphical gparted
+14.5) after resize of partition done, dd it again to iso file.
+Now instead of your original hdd size (100Gib) file uses only really allocated space (20Gib)
+14.6) iso image complete, keep it and enjoy
+
+
 14) graphically resize partitions:
 gparted
