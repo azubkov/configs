@@ -1,3 +1,4 @@
+-------------------------------------------------------------------------------------------------------
 How to create launcher for program from any directory(suse 13.1)?
 
 tort@linux-2rzl:~/bin> pwd -P
@@ -10,3 +11,14 @@ nohup ~/soft/ijidea/bin/idea.sh &> $TMPDIR/idea_nohup.out&
 tort@linux-2rzl:~/bin> cd ..
 tort@linux-2rzl:~> idea.sh
 tort@linux-2rzl:~> 
+-------------------------------------------------------------------------------------------------------
+git add to ignored files:
+
+  echo "baz" >> .gitignore
+
+-------------------------------------------------------------------------------------------------------
+git untrack:
+
+  git rm --cached _filename_
+
+-------------------------------------------------------------------------------------------------------
