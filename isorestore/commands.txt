@@ -18,6 +18,9 @@ mount -B /dev /mnt/dev
 mount -B /dev/pts /mnt/dev/pts
 chroot /mnt
 grub2-install
+or 
+lsblk
+update-grub
 exit
 reboot
 10) mount /dev/sda1 /mnt
