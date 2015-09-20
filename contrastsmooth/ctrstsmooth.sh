@@ -94,5 +94,5 @@ TARGET_FLOAT=$(echo "scale=4; $TARGET_PERCENT/100" | bc)
 echo TARGET_FLOAT : $TARGET_FLOAT
 
 xrandr --output LVDS1 --brightness $TARGET_FLOAT
-xrandr --output VGA1 --brightness $TARGET_FLOAT
+###xrandr --output VGA1 --brightness $TARGET_FLOAT
 echo $TARGET_FLOAT > $LEVEL_FILE
