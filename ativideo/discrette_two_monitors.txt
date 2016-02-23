@@ -1,0 +1,19 @@
+if amd-driver-installer says that driver is unsupported:
+
+nano /etc/default/grub
+radeon.runpm=0
+
+like this:
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_osi=Linux acpi_backlight=vendor radeon.runpm=0"
+
+reboot 
+
+
+check actual fps:
+fgl_glxgears
+
+
+finally how to avoid problems on dual display rendering:
+xrandr --output LVDS1 --auto --right-of HDMI1 --primary --scale 1.0001x1.0001 --output HDMI1 --auto --scale 1.0001x1.0001 
+
+
